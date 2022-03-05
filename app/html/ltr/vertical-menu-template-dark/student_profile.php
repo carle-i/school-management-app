@@ -33,6 +33,23 @@ if (isset($_GET['ktsp'])) {
     exit();
 }
 
+//UPDATE STUDENT INFOS
+if (isset($_POST['update_student'])) {
+    if ($role == 'admin' or $role == 'headmaster') {
+        $nom_apprenant = $_POST['nom_apprenant'];
+        $prenom_apprenant = $_POST['prenom_apprenant'];
+        $telephone_apprenant = $_POST['telephone_apprenant'];
+        $adresse_apprenant = $_POST['adresse_apprenant'];
+        $other_info_apprenant = $_POST['other_info_apprenant'];
+        $information_tierce = $other_info_apprenant;
+        $tutor_apprenant = $_POST['tutor_apprenant'];
+        $result = mysqli_query($database, "UPDATE apprenant SET nom_apprenant = '$nom_apprenant', prenom_apprenant = '$prenom_apprenant', telephone = '$telephone', adresse = '$adresse', contact_parentale = '$contact_parentale', information_tierce = '$other_info_apprenant' WHERE matricule_apprenant = '$matricule_apprenant' ");
+        # code...
+    } else {
+        include 'access_denieted.php';
+    }
+}
+
 //CHANGE STUDENT CLASS TREATMENT
 if (isset($_POST['change_class'])) {
     if ($role == 'admin' or $role == 'headmaster') {
@@ -712,8 +729,8 @@ if (isset($_POST['delete_note'])) {
 
                                             ?>
 
-                                            <li class="nav-item pb-0 mr-0">
-                                                <a class="nav-link d-flex px-1 " id="profile-tab" data-toggle="tab" href="#profile" aria-controls="profile" role="tab" aria-selected="false"><i class="bx bx-copy-alt"></i><span class="d-none d-md-block">Profile</span></a>
+                                            <li class="nav-item pb-0 mr-0 active">
+                                                <a class="nav-link d-flex px-1 active" id="profile-tab" data-toggle="tab" href="#profile" aria-controls="profile" role="tab" aria-selected="false"><i class="bx bx-copy-alt"></i><span class="d-none d-md-block">Profile</span></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -1077,7 +1094,6 @@ if (isset($_POST['delete_note'])) {
                                             </section>
                                             <!-- Column selectors with Export Options and print table -->
                                         </div>
-
                                         <div class=" tab-pane" id="config" aria-labelledby="config-tab" role="tabpanel">
                                             <div class="tab-content pl-0">
                                                 <div class="tab-pane active" id="user-status" aria-labelledby="user-status-tab" role="tabpanel">
@@ -1102,7 +1118,7 @@ if (isset($_POST['delete_note'])) {
                                                                                                 <label>Birthday and Place</label>
                                                                                                 <input type="text" name="adresse_apprenant" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3" placeholder="<?php echo $adresse ?>" value="<?php echo $adresse ?>"></input>
                                                                                                 <label>Others informations</label>
-                                                                                                <textarea name="other_info_apprenant" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3" placeholder="<?php echo $information_tierce ?>" value="<?php echo $information_tierce ?>"></textarea>
+                                                                                                <textarea name="other_info_apprenant" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3"><?php echo $information_tierce ?> </textarea>
                                                                                                 <label>Tutor Adresse</label>
                                                                                                 <input type="text" name="tutor_apprenant" class="form-control border-1 shadow-none" id="user-post-textarea" rows="3" placeholder="<?php echo $contact_parentale ?>" value="<?php echo $contact_parentale ?>"></input>
                                                                                             </div>
@@ -1165,7 +1181,7 @@ if (isset($_POST['delete_note'])) {
                                             </div>
                                         </div>
 
-                                        <div class="tab-pane " id="profile" aria-labelledby="profile-tab" role="tabpanel">
+                                        <div class="tab-pane active" id="profile" aria-labelledby="profile-tab" role="tabpanel">
                                             <!-- user profile nav tabs profile start -->
                                             <div class="card">
                                                 <div class="card-content">
